@@ -53,8 +53,8 @@ public class Task7Test {
     }
 
     @Test
-    @DisplayName("Некорректный ввод")
-    void wrongInput() {
+    @DisplayName("Некорректный ввод для правого сдвига")
+    void wrongInputForRightShift() {
         assertThrows(
             IllegalArgumentException.class,
             () -> {
@@ -62,6 +62,20 @@ public class Task7Test {
                 int shift = 12;
 
                 rotateRight(number, shift);
+            }
+        );
+    }
+
+    @Test
+    @DisplayName("Некорректный ввод для левого сдвига")
+    void wrongInputForLeftShift() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> {
+                int number = -344242123;
+                int shift = 12;
+
+                rotateLeft(number, shift);
             }
         );
     }

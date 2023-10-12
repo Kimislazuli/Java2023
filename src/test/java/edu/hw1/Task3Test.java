@@ -80,7 +80,7 @@ public class Task3Test {
     @DisplayName("Вкладываемый null")
     void leftIsNull() {
         assertThrows(
-            NullPointerException.class,
+            IllegalArgumentException.class,
             () -> {
                 int[] a = null;
                 int[] b = {1, 2};
@@ -93,7 +93,7 @@ public class Task3Test {
     @DisplayName("Целевой null")
     void rightIsNull() {
         assertThrows(
-            NullPointerException.class,
+            IllegalArgumentException.class,
             () -> {
                 int[] a = {100, 12};
                 int[] b = null;
@@ -106,7 +106,7 @@ public class Task3Test {
     @DisplayName("Оба null")
     void bothAreNull() {
         assertThrows(
-            NullPointerException.class,
+            IllegalArgumentException.class,
             () -> {
                 int[] a = null;
                 int[] b = null;

@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public final class Task1 {
     private static final int SECONDS_IN_MINUTE = 60;
+    private static final int MAX_VALUE_FOR_MINUTES = 10000;
 
     private Task1() {
     }
@@ -16,10 +17,7 @@ public final class Task1 {
             int minutes = Integer.parseInt(dividedTime[0]);
 
             if (isTimeValid(seconds, minutes)) {
-                int result = minutes * SECONDS_IN_MINUTE + seconds;
-                if (result > 0) {
-                    return result;
-                }
+                return minutes * SECONDS_IN_MINUTE + seconds;
             }
         }
         return -1;
@@ -32,6 +30,6 @@ public final class Task1 {
     }
 
     private static boolean isTimeValid(int seconds, int minutes) {
-        return seconds < SECONDS_IN_MINUTE && seconds >= 0 && minutes >= 0;
+        return seconds < SECONDS_IN_MINUTE && seconds >= 0 && minutes >= 0 && minutes <= MAX_VALUE_FOR_MINUTES;
     }
 }

@@ -77,10 +77,9 @@ public class Task1Test {
     }
 
     @Test
-    @DisplayName("Огромные минуты")
-    void maxMinuteValue() {
-        int minutes = Integer.MAX_VALUE;
-        String timeStamp = Integer.toString(minutes) + ":20";
+    @DisplayName("Минуты больше разрешёных")
+    void bigMinuteValue() {
+        String timeStamp = "1564625:20";
 
         int actualResult = minutesToSeconds(timeStamp);
         assertThat(actualResult).isEqualTo(-1);
