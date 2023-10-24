@@ -1,11 +1,11 @@
-package edu.hw2;
+package edu.hw2.Task1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import static edu.hw2.Task1.Expr;
-import static edu.hw2.Task1.Expr.*;
+import static edu.hw2.Task1.Task1.Expr;
+import static edu.hw2.Task1.Task1.Expr.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.withPrecision;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -6,20 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class Task3Test {
-    private static final FaultyConnection dummyFaultyConnectionAlwaysFails = new FaultyConnection() {
+    private static final Connection dummyFaultyConnectionAlwaysFails = new FaultyConnection() {
         @Override
         protected boolean checkIfConnectionWillFail() {
             return true;
         }
     };
-    private static final DefaultConnectionManager dummyAlwaysFaultyDefaultManager = new DefaultConnectionManager() {
+    private static final ConnectionManager dummyAlwaysFaultyDefaultManager = new DefaultConnectionManager() {
         @Override
         public Connection getConnection() {
             return dummyFaultyConnectionAlwaysFails;
         }
     };
 
-    private static final DefaultConnectionManager dummyAlwaysFaultyFaultyManager = new DefaultConnectionManager() {
+    private static final ConnectionManager dummyAlwaysFaultyFaultyManager = new FaultyConnectionManager() {
         @Override
         public Connection getConnection() {
             return dummyFaultyConnectionAlwaysFails;
