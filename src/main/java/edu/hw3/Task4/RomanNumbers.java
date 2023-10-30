@@ -29,7 +29,7 @@ import java.util.TreeMap;
     }
 
     public static String convertToRoman(int arabicNumber) {
-        if (arabicNumber > LIMIT) {
+        if (arabicNumber > LIMIT || arabicNumber < 1) {
             throw new IllegalArgumentException("Number should be less than 3999.");
         }
 

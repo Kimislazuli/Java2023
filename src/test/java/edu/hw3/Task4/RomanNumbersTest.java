@@ -19,6 +19,17 @@ public class RomanNumbersTest {
     }
 
     @Test
+    @DisplayName("0")
+    void zero() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> {
+                convertToRoman(0);
+            }
+        );
+    }
+
+    @Test
     @DisplayName("Составное число")
     void compositeNumber() {
         String actualResult = convertToRoman(3992);
