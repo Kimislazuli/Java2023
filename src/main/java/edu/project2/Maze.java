@@ -37,4 +37,14 @@ public class Maze {
     public Cell[][] getGrid() {
         return grid;
     }
+
+    public Position getNewPosition(Position currentPosition, int[] offset) {
+        if (currentPosition.row() + offset[0] < height
+            && currentPosition.row() + offset[0] >= 0
+            && currentPosition.col() + offset[1] < width
+            && currentPosition.col() + offset[1] >= 0) {
+            return new Position(currentPosition.row() + offset[0], currentPosition.col() + offset[1]);
+        }
+        return null;
+    }
 }

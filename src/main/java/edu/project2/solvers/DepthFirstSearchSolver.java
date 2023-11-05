@@ -43,7 +43,7 @@ public class DepthFirstSearchSolver extends MazeSolver {
         }
 
         for (int[] offset : DIRECTIONS) {
-            Position newPosition = getNewPosition(currentPosition, offset);
+            Position newPosition = maze.getNewPosition(currentPosition, offset);
             if (newPosition != null) {
                 if (dfs(newPosition)) {
                     return true;
@@ -53,15 +53,5 @@ public class DepthFirstSearchSolver extends MazeSolver {
 
         path.remove(currentPosition);
         return false;
-    }
-
-    private Position getNewPosition(Position currentPosition, int[] offset) {
-        if (currentPosition.row() + offset[0] < maze.getHeight()
-            && currentPosition.row() + offset[0] >= 0
-            && currentPosition.col() + offset[1] < maze.getWidth()
-            && currentPosition.col() + offset[1] >= 0) {
-            return new Position(currentPosition.row() + offset[0], currentPosition.col() + offset[1]);
-        }
-        return null;
     }
 }

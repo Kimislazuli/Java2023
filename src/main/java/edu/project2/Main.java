@@ -1,5 +1,8 @@
 package edu.project2;
 
+import edu.project2.generators.MazeGenerator;
+import edu.project2.generators.PrimRandomizedGenerator;
+import edu.project2.generators.RecursiveBacktrackerGenerator;
 import edu.project2.solvers.BreadthFirstSearchSolver;
 import edu.project2.solvers.DepthFirstSearchSolver;
 import edu.project2.solvers.MazeSolver;
@@ -22,8 +25,23 @@ public final class Main {
         int height = SCANNER.nextInt();
 
         Maze maze = new Maze(width, height);
-        MazeGenerator mazeGenerator = new MazeGenerator(maze);
-        mazeGenerator.primSimplifiedAlgorithm();
+        MazeGenerator mazeGenerator;
+
+        System.out.println("Also choose generating algorithm:");
+        System.out.println("Print 1 for randomized Prim's algorithm");
+        System.out.println("Print 2 for recursive backtracker");
+        int generatingAlgorithm = SCANNER.nextInt();
+
+
+        if (generatingAlgorithm == 1) {
+            mazeGenerator = new PrimRandomizedGenerator(maze);
+        } else if (generatingAlgorithm == 2) {
+            mazeGenerator = new RecursiveBacktrackerGenerator(maze);
+        } else {
+            throw new IllegalArgumentException("No such generating algorithm.");
+        }
+        new RecursiveBacktrackerGenerator(maze);
+        mazeGenerator.generate();
         System.out.println();
 
         List<String> result = PrettyMazeRenderer.processToOutput(maze);
@@ -46,19 +64,19 @@ public final class Main {
         int colEnd = SCANNER.nextInt();
         Position end = new Position(rowEnd - 1, colEnd - 1);
 
-        System.out.println("Also choose algorithm:");
+        System.out.println("Also choose solving algorithm:");
         System.out.println("Print 1 for BFS");
         System.out.println("Print 2 for DFS");
-        int algorithm = SCANNER.nextInt();
+        int solveAlgorithm = SCANNER.nextInt();
 
         MazeSolver mazeSolver;
 
-        if (algorithm == 1) {
+        if (solveAlgorithm == 1) {
             mazeSolver = new BreadthFirstSearchSolver(maze, start, end);
-        } else if (algorithm == 2) {
+        } else if (solveAlgorithm == 2) {
             mazeSolver = new DepthFirstSearchSolver(maze, start, end);
         } else {
-            throw new IllegalArgumentException("No such algorithm.");
+            throw new IllegalArgumentException("No such solving algorithm.");
         }
 
         mazeSolver.solve();
