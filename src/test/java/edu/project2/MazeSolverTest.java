@@ -1,5 +1,8 @@
 package edu.project2;
 
+import edu.project2.solvers.BreadthFirstSearchSolver;
+import edu.project2.solvers.DepthFirstSearchSolver;
+import edu.project2.solvers.MazeSolver;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -22,8 +25,8 @@ public class MazeSolverTest {
         grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
         grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
 
-        MazeSolver mazeSolver = new MazeSolver(maze, new Position(0, 0), new Position(0, 4));
-        mazeSolver.breadthFirstSearch();
+        MazeSolver mazeSolver = new BreadthFirstSearchSolver(maze, new Position(0, 0), new Position(0, 4));
+        mazeSolver.solve();
 
         Cell[][] expectedResult = new Cell[5][5];
         expectedResult[0] = new Cell[] {ROUTE, ROUTE, ROUTE, WALL, ROUTE};
@@ -49,8 +52,52 @@ public class MazeSolverTest {
                 grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
                 grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
 
-                MazeSolver mazeSolver = new MazeSolver(maze, new Position(0, 0), new Position(0, 4));
-                mazeSolver.breadthFirstSearch();
+                MazeSolver mazeSolver = new BreadthFirstSearchSolver(maze, new Position(0, 0), new Position(0, 4));
+                mazeSolver.solve();
+            }
+        );
+    }
+
+    @Test
+    @DisplayName("Поиск в глубину может найти путь")
+    void dfsCanFindPath() {
+        Maze maze = new Maze(5, 5);
+        Cell[][] grid = maze.getGrid();
+        grid[0] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
+        grid[1] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
+        grid[2] = new Cell[] {PASS, PASS, PASS, PASS, PASS};
+        grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
+        grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
+
+        MazeSolver mazeSolver = new DepthFirstSearchSolver(maze, new Position(0, 0), new Position(0, 4));
+        mazeSolver.solve();
+
+        Cell[][] expectedResult = new Cell[5][5];
+        expectedResult[0] = new Cell[] {ROUTE, ROUTE, ROUTE, WALL, ROUTE};
+        expectedResult[1] = new Cell[] {WALL, WALL, ROUTE, WALL, ROUTE};
+        expectedResult[2] = new Cell[] {PASS, PASS, ROUTE, ROUTE, ROUTE};
+        expectedResult[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
+        expectedResult[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
+
+        assertThat(maze.getGrid()).isDeepEqualTo(expectedResult);
+    }
+
+    @Test
+    @DisplayName("Поиск в глубину не может найти путь")
+    void dfsCannotFindPath() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> {
+                Maze maze = new Maze(5, 5);
+                Cell[][] grid = maze.getGrid();
+                grid[0] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
+                grid[1] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
+                grid[2] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
+                grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
+                grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
+
+                MazeSolver mazeSolver = new DepthFirstSearchSolver(maze, new Position(0, 0), new Position(0, 4));
+                mazeSolver.solve();
             }
         );
     }
@@ -70,11 +117,16 @@ public class MazeSolverTest {
 
         List<String> expectedResult = new ArrayList<String>();
         expectedResult.add("\033[47m   ".repeat(7) + "\u001B[0m   ");
-        expectedResult.add("\033[47m   \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \u001B[40m   \u001B[0m\u001B[35m • \033[47m   \u001B[0m   ");
-        expectedResult.add("\033[47m   \u001B[40m   \u001B[40m   \u001B[0m\u001B[35m • \u001B[40m   \u001B[0m\u001B[35m • \033[47m   \u001B[0m   ");
-        expectedResult.add("\033[47m   \u001B[0m   \u001B[0m   \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \033[47m   \u001B[0m   ");
-        expectedResult.add("\033[47m   \u001B[40m   \u001B[40m   \u001B[0m   \u001B[40m   \u001B[0m   \033[47m   \u001B[0m   ");
-        expectedResult.add("\033[47m   \u001B[0m   \u001B[0m   \u001B[0m   \u001B[40m   \u001B[0m   \033[47m   \u001B[0m   ");
+        expectedResult.add(
+            "\033[47m   \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \u001B[40m   \u001B[0m\u001B[35m • \033[47m   \u001B[0m   ");
+        expectedResult.add(
+            "\033[47m   \u001B[40m   \u001B[40m   \u001B[0m\u001B[35m • \u001B[40m   \u001B[0m\u001B[35m • \033[47m   \u001B[0m   ");
+        expectedResult.add(
+            "\033[47m   \u001B[0m   \u001B[0m   \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \u001B[0m\u001B[35m • \033[47m   \u001B[0m   ");
+        expectedResult.add(
+            "\033[47m   \u001B[40m   \u001B[40m   \u001B[0m   \u001B[40m   \u001B[0m   \033[47m   \u001B[0m   ");
+        expectedResult.add(
+            "\033[47m   \u001B[0m   \u001B[0m   \u001B[0m   \u001B[40m   \u001B[0m   \033[47m   \u001B[0m   ");
         expectedResult.add("\033[47m   ".repeat(7) + "\u001B[0m   ");
 
         assertThat(renderedMaze).isEqualTo(expectedResult);
@@ -116,7 +168,7 @@ public class MazeSolverTest {
                 grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
                 grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
 
-               new MazeSolver(maze, new Position(0, 0), new Position(0, 3));
+                new BreadthFirstSearchSolver(maze, new Position(0, 0), new Position(0, 3));
             }
         );
     }
@@ -135,7 +187,7 @@ public class MazeSolverTest {
                 grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
                 grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
 
-                new MazeSolver(maze, new Position(1, 0), new Position(0, 4));
+                new BreadthFirstSearchSolver(maze, new Position(1, 0), new Position(0, 4));
             }
         );
     }
@@ -154,7 +206,7 @@ public class MazeSolverTest {
                 grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
                 grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
 
-                new MazeSolver(maze, new Position(0, 0), new Position(0, 8));
+                new BreadthFirstSearchSolver(maze, new Position(0, 0), new Position(0, 8));
             }
         );
     }
@@ -173,7 +225,7 @@ public class MazeSolverTest {
                 grid[3] = new Cell[] {WALL, WALL, PASS, WALL, PASS};
                 grid[4] = new Cell[] {PASS, PASS, PASS, WALL, PASS};
 
-                new MazeSolver(maze, new Position(6, 0), new Position(0, 4));
+                new BreadthFirstSearchSolver(maze, new Position(6, 0), new Position(0, 4));
             }
         );
     }

@@ -1,57 +1,32 @@
-package edu.project2;
+package edu.project2.solvers;
 
+import edu.project2.Cell;
+import edu.project2.Maze;
+import edu.project2.Position;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class MazeSolver {
-    private final Maze maze;
-    private final Position start;
-    private final Position end;
-    private final Deque<Position> cellsQueue = new ArrayDeque<>();
-    private final List<Position> visited = new ArrayList<>();
+public class BreadthFirstSearchSolver extends MazeSolver {
+    private final Deque<Position> cellsDeque = new ArrayDeque<>();
     private final Map<Position, Position> parents = new HashMap<>();
 
-    public MazeSolver(Maze maze, Position start, Position end) {
-        this.maze = maze;
-        Cell[][] grid = maze.getGrid();
-        if (isPositionInTheGrid(start)) {
-            if (grid[start.row()][start.col()] == Cell.PASS) {
-                this.start = start;
-            } else {
-                throw new IllegalArgumentException("Start position is wall");
-            }
-        } else {
-            throw new IllegalArgumentException("Start position is out of grid");
-        }
-
-        if (isPositionInTheGrid(end)) {
-            if (grid[end.row()][end.col()] == Cell.PASS) {
-                this.end = end;
-            } else {
-                throw new IllegalArgumentException("End position is wall");
-            }
-        } else {
-            throw new IllegalArgumentException("End position is out of grid");
-        }
+    public BreadthFirstSearchSolver(Maze maze, Position start, Position end) {
+        super(maze, start, end);
     }
 
-    private boolean isPositionInTheGrid(Position position) {
-        return position.col() < maze.getWidth() && position.col() >= 0
-            && position.row() < maze.getHeight() && position.row() >= 0;
-    }
-
-    public void breadthFirstSearch() {
-        cellsQueue.push(start);
+    public void solve() {
+        cellsDeque.push(start);
         parents.put(start, null);
 
-        while (!cellsQueue.isEmpty()) {
-            Position currentPosition = cellsQueue.poll();
+        while (!cellsDeque.isEmpty()) {
+            Position currentPosition = cellsDeque.poll();
+            if (currentPosition.equals(end)) {
+                break;
+            }
             visited.add(currentPosition);
-            addNeighboursBFS(currentPosition);
+            addNeighbours(currentPosition);
         }
 
         Position currentPosition = end;
@@ -69,7 +44,7 @@ public class MazeSolver {
         }
     }
 
-    private void addNeighboursBFS(Position currentPosition) {
+    private void addNeighbours(Position currentPosition) {
         Cell[][] grid = maze.getGrid();
         int column = currentPosition.col();
         int row = currentPosition.row();
@@ -100,9 +75,9 @@ public class MazeSolver {
     }
 
     private void tryToAddPosition(Position newPosition, Position currentPosition) {
-        if (!visited.contains(newPosition) && !cellsQueue.contains(newPosition)) {
+        if (!visited.contains(newPosition) && !cellsDeque.contains(newPosition)) {
             parents.put(newPosition, currentPosition);
-            cellsQueue.add(newPosition);
+            cellsDeque.add(newPosition);
         }
     }
 }

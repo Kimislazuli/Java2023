@@ -1,5 +1,8 @@
 package edu.project2;
 
+import edu.project2.solvers.BreadthFirstSearchSolver;
+import edu.project2.solvers.DepthFirstSearchSolver;
+import edu.project2.solvers.MazeSolver;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,9 +46,22 @@ public final class Main {
         int colEnd = SCANNER.nextInt();
         Position end = new Position(rowEnd - 1, colEnd - 1);
 
-        MazeSolver mazeSolver = new MazeSolver(maze, start, end);
+        System.out.println("Also choose algorithm:");
+        System.out.println("Print 1 for BFS");
+        System.out.println("Print 2 for DFS");
+        int algorithm = SCANNER.nextInt();
 
-        mazeSolver.breadthFirstSearch();
+        MazeSolver mazeSolver;
+
+        if (algorithm == 1) {
+            mazeSolver = new BreadthFirstSearchSolver(maze, start, end);
+        } else if (algorithm == 2) {
+            mazeSolver = new DepthFirstSearchSolver(maze, start, end);
+        } else {
+            throw new IllegalArgumentException("No such algorithm.");
+        }
+
+        mazeSolver.solve();
 
         List<String> solveResult = PrettyMazeRenderer.processToOutput(maze);
         for (var row : solveResult) {
