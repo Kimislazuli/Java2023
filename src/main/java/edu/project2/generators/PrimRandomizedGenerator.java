@@ -8,7 +8,7 @@ import static edu.project2.Cell.WALL;
 
 public class PrimRandomizedGenerator extends MazeGenerator {
     private final static int[][] DIRECTIONS
-        = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+            = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
     public PrimRandomizedGenerator(Maze maze) {
         super(maze);
@@ -29,30 +29,30 @@ public class PrimRandomizedGenerator extends MazeGenerator {
     }
 
     private void makeNewPassage(Cell[][] grid, Position currentPosition) {
-        if (currentPosition.col() + 1 < maze.getWidth() && currentPosition.col() - 1 >= 0) {
-            if (grid[currentPosition.row()][currentPosition.col() + 1]
-                != grid[currentPosition.row()][currentPosition.col() - 1]) {
-                grid[currentPosition.row()][currentPosition.col()] = PASS;
-                if (grid[currentPosition.row()][currentPosition.col() + 1] == WALL) {
-                    grid[currentPosition.row()][currentPosition.col() + 1] = PASS;
-                    addNewCellsToCheck(new Position(currentPosition.row(), currentPosition.col() + 1), DIRECTIONS);
+        int row = currentPosition.row();
+        int col = currentPosition.col();
+        if (grid[row][col] == WALL && col + 1 < maze.getWidth() && col - 1 >= 0) {
+            if (grid[row][col + 1] != grid[row][col - 1]) {
+                grid[row][col] = PASS;
+                if (grid[row][col + 1] == WALL) {
+                    grid[row][col + 1] = PASS;
+                    addNewCellsToCheck(new Position(row, col + 1), DIRECTIONS);
                 } else {
-                    grid[currentPosition.row()][currentPosition.col() - 1] = PASS;
-                    addNewCellsToCheck(new Position(currentPosition.row(), currentPosition.col() - 1), DIRECTIONS);
+                    grid[row][col - 1] = PASS;
+                    addNewCellsToCheck(new Position(row, col - 1), DIRECTIONS);
                 }
                 return;
             }
         }
-        if (currentPosition.row() - 1 >= 0 && currentPosition.row() + 1 < maze.getHeight()) {
-            if (grid[currentPosition.row() + 1][currentPosition.col()]
-                != grid[currentPosition.row() - 1][currentPosition.col()]) {
-                grid[currentPosition.row()][currentPosition.col()] = PASS;
-                if (grid[currentPosition.row() + 1][currentPosition.col()] == WALL) {
-                    grid[currentPosition.row() + 1][currentPosition.col()] = PASS;
-                    addNewCellsToCheck(new Position(currentPosition.row() + 1, currentPosition.col()), DIRECTIONS);
+        if (grid[row][col] == WALL && row - 1 >= 0 && row + 1 < maze.getHeight()) {
+            if (grid[row + 1][col] != grid[row - 1][col]) {
+                grid[row][col] = PASS;
+                if (grid[row + 1][col] == WALL) {
+                    grid[row + 1][col] = PASS;
+                    addNewCellsToCheck(new Position(row + 1, col), DIRECTIONS);
                 } else {
-                    grid[currentPosition.row() - 1][currentPosition.col()] = PASS;
-                    addNewCellsToCheck(new Position(currentPosition.row() - 1, currentPosition.col()), DIRECTIONS);
+                    grid[row - 1][col] = PASS;
+                    addNewCellsToCheck(new Position(row - 1, col), DIRECTIONS);
                 }
             }
         }

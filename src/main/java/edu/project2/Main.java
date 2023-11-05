@@ -32,7 +32,6 @@ public final class Main {
         System.out.println("Print 2 for recursive backtracker");
         int generatingAlgorithm = SCANNER.nextInt();
 
-
         if (generatingAlgorithm == 1) {
             mazeGenerator = new PrimRandomizedGenerator(maze);
         } else if (generatingAlgorithm == 2) {
