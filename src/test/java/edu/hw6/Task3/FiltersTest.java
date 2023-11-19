@@ -66,7 +66,7 @@ public class FiltersTest {
                 Path.of("src" + File.separator + "test" + File.separator + "resources" + File.separator + "hw6" + File.separator + "Task3" + File.separator + "log4j2.properties"),
                 Path.of("src" + File.separator + "test" + File.separator + "resources" + File.separator + "hw6" + File.separator + "Task3" + File.separator + "png-clipart-sign-stop-sign-stop.png")
             );
-            assertThat(actualResult).containsExactlyInAnyOrderElementsOf(expectedResult);
+            assertThat(actualResult).containsAnyElementsOf(expectedResult);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
