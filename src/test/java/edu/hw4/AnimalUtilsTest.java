@@ -12,7 +12,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import static edu.hw4.AnimalUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AnimalUtilsTest {
     @Test
@@ -38,7 +40,7 @@ public class AnimalUtilsTest {
     @Test
     @DisplayName("Сортировка по возрастанию роста, пустой список")
     void correctlySortAnimalsByHeightAscendingEmptyList() {
-        assertThat(Collections.emptyList()).containsExactly();
+        assertThat(sortAnimalsByHeightAscending(Collections.emptyList())).containsExactly();
     }
 
     @Test
@@ -301,7 +303,7 @@ public class AnimalUtilsTest {
             new Animal("Mortimer", Animal.Type.DOG, Animal.Sex.M, 10, 25, 5, true)
         ), 25);
 
-        assertThat(actualResult).isTrue();
+        assertTrue(actualResult);
     }
 
     @Test
@@ -313,7 +315,7 @@ public class AnimalUtilsTest {
             new Animal("Lucy", Animal.Type.FISH, Animal.Sex.F, 0, 5, 6, false)
         ), 25);
 
-        assertThat(actualResult).isFalse();
+        assertFalse(actualResult);
     }
 
     @Test
@@ -327,7 +329,7 @@ public class AnimalUtilsTest {
             new Animal("Mortimer", Animal.Type.DOG, Animal.Sex.M, 10, 25, 5, true)
         ), 150);
 
-        assertThat(actualResult).isFalse();
+        assertFalse(actualResult);
     }
 
     @Test
@@ -481,7 +483,7 @@ public class AnimalUtilsTest {
             new Animal("Andy", Animal.Type.SPIDER, Animal.Sex.F, 10, 25, 2, true)
         ));
 
-        assertThat(actualResult).isTrue();
+        assertTrue(actualResult);
     }
 
     @Test
@@ -496,7 +498,7 @@ public class AnimalUtilsTest {
             new Animal("Andy", Animal.Type.SPIDER, Animal.Sex.F, 10, 25, 2, true)
         ));
 
-        assertThat(actualResult).isFalse();
+        assertFalse(actualResult);
     }
 
     @Test
@@ -509,6 +511,6 @@ public class AnimalUtilsTest {
             new Animal("Andy", Animal.Type.SPIDER, Animal.Sex.F, 10, 25, 2, true)
         ));
 
-        assertThat(actualResult).isFalse();
+        assertFalse(actualResult);
     }
 }
