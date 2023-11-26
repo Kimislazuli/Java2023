@@ -39,9 +39,8 @@ public final class Main {
         } else {
             throw new IllegalArgumentException("No such generating algorithm.");
         }
-        new RecursiveBacktrackerGenerator(maze);
+
         mazeGenerator.generate();
-        System.out.println();
 
         List<String> result = PrettyMazeRenderer.processToOutput(maze);
         for (var row : result) {

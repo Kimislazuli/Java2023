@@ -50,26 +50,26 @@ public class RecursiveBacktrackerGenerator extends MazeGenerator {
         return unvisitedNeighbours;
     }
 
-//    protected void makePassage(Position currentPosition, Position newPosition) {
-//        Cell[][] grid = maze.getGrid();
-//        if (currentPosition.row() < newPosition.row()) {
-//            grid[currentPosition.row() + 1][currentPosition.col()] = PASS;
-//            grid[currentPosition.row() + 2][currentPosition.col()] = PASS;
-//        }
-//
-//        if (currentPosition.row() > newPosition.row()) {
-//            grid[currentPosition.row() - 1][currentPosition.col()] = PASS;
-//            grid[currentPosition.row() - 2][currentPosition.col()] = PASS;
-//        }
-//
-//        if (currentPosition.col() < newPosition.col()) {
-//            grid[currentPosition.row()][currentPosition.col() + 1] = PASS;
-//            grid[currentPosition.row()][currentPosition.col() + 2] = PASS;
-//        }
-//
-//        if (currentPosition.col() > newPosition.col()) {
-//            grid[currentPosition.row()][currentPosition.col() - 1] = PASS;
-//            grid[currentPosition.row()][currentPosition.col() - 2] = PASS;
-//        }
-//    }
+    private void makePassage(Position currentPosition, Position newPosition) {
+        Cell[][] grid = maze.getGrid();
+        if (currentPosition.row() < newPosition.row()) {
+            grid[currentPosition.row() + 1][currentPosition.col()] = PASS;
+            grid[currentPosition.row() + 2][currentPosition.col()] = PASS;
+        }
+
+        if (currentPosition.row() > newPosition.row()) {
+            grid[currentPosition.row() - 1][currentPosition.col()] = PASS;
+            grid[currentPosition.row() - 2][currentPosition.col()] = PASS;
+        }
+
+        if (currentPosition.col() < newPosition.col()) {
+            grid[currentPosition.row()][currentPosition.col() + 1] = PASS;
+            grid[currentPosition.row()][currentPosition.col() + 2] = PASS;
+        }
+
+        if (currentPosition.col() > newPosition.col()) {
+            grid[currentPosition.row()][currentPosition.col() - 1] = PASS;
+            grid[currentPosition.row()][currentPosition.col() - 2] = PASS;
+        }
+    }
 }
