@@ -1,0 +1,25 @@
+10000000 iterations with one thread time: 5954111700
+the result is: 3.140931
+error is: 6.617625528058113E-4
+
+10000000 iterations with 6 threads time: 30222800
+the result is: 3.140941
+error is: 6.517489724835457E-4
+
+
+100000000 iterations with one thread time: 60872993200
+the result is: 3.1416492
+error is: 5.65926260271965E-5
+
+100000000 iterations with 6 threads time: 158915000
+the result is: 3.1415555
+error is: 3.710587555971756E-5
+
+
+1000000000 iterations with one thread time: 579521551700
+the result is: 3.141488
+error is: 1.0457833344545975E-4
+
+1000000000 iterations with 6 threads time: 1246681700
+the result is: 3.1416535
+error is: 6.088416045102463E-5
