@@ -8,6 +8,7 @@ public final class ContactsParser {
     private ContactsParser() {
     }
 
+    @SuppressWarnings("checkstyle:MissingSwitchDefault")
     public static List<Contact> parseContacts(String[] names, SortOrder order) {
         if (names == null || names.length == 0) {
             return Collections.emptyList();
@@ -21,7 +22,6 @@ public final class ContactsParser {
         switch (order) {
             case ASC -> Collections.sort(contacts, new ContactComparator());
             case DESC -> Collections.sort(contacts, new ContactComparator().reversed());
-            default -> throw new IllegalArgumentException("");
         }
 
         return contacts;
