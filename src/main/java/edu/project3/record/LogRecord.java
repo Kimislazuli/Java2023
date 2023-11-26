@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 public record LogRecord(
     String remoteAddr,
     String remoteUser,
-    OffsetDateTime localTime,
+    OffsetDateTime dateTime,
     String requestType,
     String resource,
     int status,

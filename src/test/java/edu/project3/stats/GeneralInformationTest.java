@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GeneralInformationTest {
     Path path = Paths.get("src/test/resources/project3/test.logs");
     List<LogRecord> content = Files.lines(path).map(LogRecordConverter::parseLog).toList();
-    GeneralInformation generalInformation = new GeneralInformation(Arrays.asList("test"), OffsetDateTime.MIN, OffsetDateTime.MAX, content);
+    GeneralInformation generalInformation = new GeneralInformation(Arrays.asList("test"), content);
 
     public GeneralInformationTest() throws IOException {
     }

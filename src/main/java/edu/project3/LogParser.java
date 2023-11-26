@@ -6,9 +6,11 @@ import edu.project3.record.LogRecord;
 import edu.project3.record.LogRecordConverter;
 import edu.project3.report.ReportWriter;
 import edu.project3.report.reporters.GeneralInformationReport;
+import edu.project3.report.reporters.MostActiveDateReport;
 import edu.project3.report.reporters.MostFrequentStatusCodesReport;
 import edu.project3.report.reporters.MostRequestedSourcesReport;
 import edu.project3.stats.GeneralInformation;
+import edu.project3.stats.MostActiveDateStatistics;
 import edu.project3.stats.MostFrequentStatusCodesStatistics;
 import edu.project3.stats.MostRequestedSourcesStatistics;
 import java.io.IOException;
@@ -100,22 +102,30 @@ public final class LogParser {
         Stream<String> entries = parseAllSources();
         Stream<LogRecord> entriesAsRecords = entries.map(LogRecordConverter::parseLog);
         if (from != null) {
-            entriesAsRecords = entriesAsRecords.filter(e -> e.localTime().isAfter(from));
+            entriesAsRecords = entriesAsRecords.filter(e -> e.dateTime().isAfter(from));
         }
         if (to != null) {
-            entriesAsRecords = entriesAsRecords.filter(e -> e.localTime().isBefore(to));
+            entriesAsRecords = entriesAsRecords.filter(e -> e.dateTime().isBefore(to));
         }
+
         List<LogRecord> logRecords = entriesAsRecords.toList();
-        GeneralInformation generalInformation = new GeneralInformation(SOURCES, from, to, logRecords);
+
+        GeneralInformation generalInformation = new GeneralInformation(SOURCES, logRecords);
+
         MostRequestedSourcesStatistics
             mostRequestedSourcesStatistics = new MostRequestedSourcesStatistics(logRecords);
+
         MostFrequentStatusCodesStatistics
             mostFrequentStatusCodes = new MostFrequentStatusCodesStatistics(logRecords);
+
+        MostActiveDateStatistics mostActiveDateStatistics = new MostActiveDateStatistics(logRecords);
+
         ReportWriter.writeStatistics(
             format,
             new GeneralInformationReport(format, generalInformation),
             new MostRequestedSourcesReport(format, mostRequestedSourcesStatistics),
-            new MostFrequentStatusCodesReport(format, mostFrequentStatusCodes)
+            new MostFrequentStatusCodesReport(format, mostFrequentStatusCodes),
+            new MostActiveDateReport(format, mostActiveDateStatistics)
         );
     }
 
