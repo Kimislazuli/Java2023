@@ -1,15 +1,9 @@
 package edu.hw8.Task2;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-
 public class MultithreadingFibonacciDemonstrationTest {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         try (FixedThreadPool fixedThreadPool = FixedThreadPool.create(3)) {
-//        FixedThreadPool fixedThreadPool = FixedThreadPool.create(3);
-//        try (ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3)) {
             fixedThreadPool.start();
             fixedThreadPool.execute(new Fibonacci(0));
             fixedThreadPool.execute(new Fibonacci(10));
