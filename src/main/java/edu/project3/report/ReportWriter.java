@@ -13,7 +13,7 @@ public final class ReportWriter {
 
     @SuppressWarnings("checkstyle:MissingSwitchDefault")
     public static void writeStatistics(Format format, LogReport... reports) throws IOException {
-        Path path = Paths.get(System.getProperty("user.home"), ".logsReports", "report");
+        Path path = Paths.get("src/main/resources/project3", "report");
         switch (format) {
             case MD -> {
                 path = Path.of(path + ".md");

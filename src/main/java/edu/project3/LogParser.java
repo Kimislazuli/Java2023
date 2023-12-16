@@ -9,10 +9,12 @@ import edu.project3.report.reporters.GeneralInformationReport;
 import edu.project3.report.reporters.MostActiveDateReport;
 import edu.project3.report.reporters.MostFrequentStatusCodesReport;
 import edu.project3.report.reporters.MostRequestedSourcesReport;
+import edu.project3.report.reporters.PeakHourReporter;
 import edu.project3.stats.GeneralInformation;
 import edu.project3.stats.MostActiveDateStatistics;
 import edu.project3.stats.MostFrequentStatusCodesStatistics;
 import edu.project3.stats.MostRequestedSourcesStatistics;
+import edu.project3.stats.PeekHourStatistics;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -119,13 +121,15 @@ public final class LogParser {
             mostFrequentStatusCodes = new MostFrequentStatusCodesStatistics(logRecords);
 
         MostActiveDateStatistics mostActiveDateStatistics = new MostActiveDateStatistics(logRecords);
+        PeekHourStatistics peekHourStatistics = new PeekHourStatistics(logRecords);
 
         ReportWriter.writeStatistics(
             format,
             new GeneralInformationReport(format, generalInformation),
             new MostRequestedSourcesReport(format, mostRequestedSourcesStatistics),
             new MostFrequentStatusCodesReport(format, mostFrequentStatusCodes),
-            new MostActiveDateReport(format, mostActiveDateStatistics)
+            new MostActiveDateReport(format, mostActiveDateStatistics),
+            new PeakHourReporter(format, peekHourStatistics)
         );
     }
 
