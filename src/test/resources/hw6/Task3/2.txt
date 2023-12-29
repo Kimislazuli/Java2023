@@ -1,0 +1,14 @@
+from collections import Counter
+
+n, k = list(map(int, input().split()))
+word = input()
+
+symbol_counts = Counter(word)
+sorted_symbols = sorted(symbol_counts.items(), key=lambda x: x[1])
+counter = 0
+for symbol in sorted_symbols:
+    if symbol[1] <= k:
+        counter += 1
+        k -= symbol[1]
+
+print(len(sorted_symbols) - counter)
